@@ -189,8 +189,8 @@ export const QuizGame: React.FC<QuizGameProps> = ({ mode, chapterData, onExit })
                 mass: 1
             }}
           >
-            <div className="bg-white/80 backdrop-blur-sm px-6 py-2 rounded-2xl">
-                <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-800 text-center font-mono-physics tracking-tight drop-shadow-sm whitespace-nowrap">
+            <div className="bg-white/80 backdrop-blur-sm px-6 py-2 rounded-2xl max-w-[90vw]">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 text-center font-mono-physics tracking-tight drop-shadow-sm break-words">
                 {getQuestionText(currentItem)}
                 </h1>
             </div>
