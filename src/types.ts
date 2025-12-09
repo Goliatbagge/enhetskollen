@@ -12,3 +12,17 @@ export enum QuizMode {
 }
 
 export type QuestionState = 'idle' | 'correct' | 'incorrect';
+
+export interface Chapter {
+  id: string;
+  name: string;
+  description: string;
+  data: PhysicsItem[];
+  color: string; // Färg för visuell åtskillnad
+}
+
+export interface Course {
+  id: string;
+  name: string;
+  chapters: Chapter[];
+}

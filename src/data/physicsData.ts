@@ -1,6 +1,7 @@
-import { PhysicsItem } from '../types';
+import { PhysicsItem, Course } from '../types';
 
-export const physicsData: PhysicsItem[] = [
+// Fysik 2 - Mekaniska vågor
+const mekaniskaVagorData: PhysicsItem[] = [
   { id: '1', quantity: 'Elongation', symbol: 'y', unitShort: 'm', unitLong: 'meter' },
   { id: '2', quantity: 'Amplitud', symbol: 'A', unitShort: 'm', unitLong: 'meter' },
   { id: '3', quantity: 'Vinkelhastighet', symbol: 'ω', unitShort: 'rad/s', unitLong: 'radianer per sekund' },
@@ -21,3 +22,40 @@ export const physicsData: PhysicsItem[] = [
   { id: '18', quantity: 'Ljudnivå', symbol: 'L', unitShort: 'dB', unitLong: 'decibel' },
   { id: '19', quantity: 'Kraft', symbol: 'F', unitShort: 'N', unitLong: 'newton' },
 ];
+
+// Fysik 1 - Energi, tryck och värme (placeholder - kommer fyllas i senare)
+const energiTryckVarmeData: PhysicsItem[] = [
+  // Kommer att fyllas i av användaren senare
+];
+
+export const courses: Course[] = [
+  {
+    id: 'fysik-1',
+    name: 'Fysik 1',
+    chapters: [
+      {
+        id: 'energi-tryck-varme',
+        name: 'Energi, tryck och värme',
+        description: 'Grundläggande koncept om energi, tryck och värme',
+        data: energiTryckVarmeData,
+        color: 'green',
+      },
+    ],
+  },
+  {
+    id: 'fysik-2',
+    name: 'Fysik 2',
+    chapters: [
+      {
+        id: 'mekaniska-vagor',
+        name: 'Mekaniska vågor',
+        description: 'Svängningar, vågor och ljudfenomen',
+        data: mekaniskaVagorData,
+        color: 'blue',
+      },
+    ],
+  },
+];
+
+// Export för bakåtkompatibilitet
+export const physicsData = mekaniskaVagorData;

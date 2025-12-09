@@ -1,23 +1,23 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PhysicsItem, QuizMode } from '../types';
-import { physicsData } from '../data/physicsData';
 import { Button } from './Button';
 import { ProgressBar } from './ProgressBar';
 import { CheckCircle2, XCircle } from 'lucide-react';
 
 interface QuizGameProps {
   mode: QuizMode;
+  chapterData: PhysicsItem[];
   onExit: () => void;
 }
 
-export const QuizGame: React.FC<QuizGameProps> = ({ mode, onExit }) => {
+export const QuizGame: React.FC<QuizGameProps> = ({ mode, chapterData, onExit }) => {
   // Queue of items to ask.
   const [queue, setQueue] = useState<PhysicsItem[]>([]);
   // Items successfully answered (for progress tracking).
   const [completedCount, setCompletedCount] = useState(0);
   // Total unique items (for progress bar calculation).
-  const [totalItems] = useState(physicsData.length);
+  const [totalItems] = useState(chapterData.length);
 
   // Game state
   const [isFinished, setIsFinished] = useState(false);
@@ -28,9 +28,9 @@ export const QuizGame: React.FC<QuizGameProps> = ({ mode, onExit }) => {
   // Initialize queue on mount
   useEffect(() => {
     // Shuffle logic
-    const shuffled = [...physicsData].sort(() => Math.random() - 0.5);
+    const shuffled = [...chapterData].sort(() => Math.random() - 0.5);
     setQueue(shuffled);
-  }, []);
+  }, [chapterData]);
 
   const currentItem = queue[0];
 
@@ -51,7 +51,7 @@ export const QuizGame: React.FC<QuizGameProps> = ({ mode, onExit }) => {
 
     // Get all unique potential answers from the dataset
     const allPotentialAnswers = Array.from(new Set(
-      physicsData.map(item => getCorrectAnswerText(item))
+      chapterData.map(item => getCorrectAnswerText(item))
     ));
 
     // Filter out the correct answer from distractors
@@ -62,7 +62,7 @@ export const QuizGame: React.FC<QuizGameProps> = ({ mode, onExit }) => {
 
     // Combine and shuffle
     return [correct, ...distractors].sort(() => Math.random() - 0.5);
-  }, [currentItem, mode]);
+  }, [currentItem, mode, chapterData]);
 
   const handleAnswerClick = (answer: string) => {
     if (isAnimating || !currentItem) return;
