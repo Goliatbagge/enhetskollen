@@ -48,17 +48,35 @@ export const QuizGame: React.FC<QuizGameProps> = ({ mode, chapterData, onExit })
     if (!currentItem) return [];
 
     const correct = getCorrectAnswerText(currentItem);
+    let distractors: string[] = [];
 
-    // Get all unique potential answers from the dataset
-    const allPotentialAnswers = Array.from(new Set(
-      chapterData.map(item => getCorrectAnswerText(item))
-    ));
+    // In QUANTITY_TO_UNIT mode, prioritize commonWrongUnits if available
+    if (mode === QuizMode.QUANTITY_TO_UNIT && currentItem.commonWrongUnits && currentItem.commonWrongUnits.length > 0) {
+      // Use common wrong units as primary distractors
+      const wrongUnits = [...currentItem.commonWrongUnits].sort(() => Math.random() - 0.5);
+      distractors = wrongUnits.slice(0, 2); // Take 2 wrong units
 
-    // Filter out the correct answer from distractors
-    const distractors = allPotentialAnswers
-      .filter(ans => ans !== correct)
-      .sort(() => Math.random() - 0.5)
-      .slice(0, 3);
+      // If we need more distractors, add from other SI-units
+      if (distractors.length < 3) {
+        const allPotentialAnswers = Array.from(new Set(
+          chapterData.map(item => getCorrectAnswerText(item))
+        ));
+        const additionalDistractors = allPotentialAnswers
+          .filter(ans => ans !== correct && !distractors.includes(ans))
+          .sort(() => Math.random() - 0.5)
+          .slice(0, 3 - distractors.length);
+        distractors = [...distractors, ...additionalDistractors];
+      }
+    } else {
+      // Original logic for SYMBOL_TO_QUANTITY mode or when no wrong units available
+      const allPotentialAnswers = Array.from(new Set(
+        chapterData.map(item => getCorrectAnswerText(item))
+      ));
+      distractors = allPotentialAnswers
+        .filter(ans => ans !== correct)
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 3);
+    }
 
     // Combine and shuffle
     return [correct, ...distractors].sort(() => Math.random() - 0.5);
@@ -195,7 +213,7 @@ export const QuizGame: React.FC<QuizGameProps> = ({ mode, chapterData, onExit })
                 </h1>
             </div>
             <div className="mt-2 text-xs font-bold tracking-wider text-indigo-400 uppercase bg-white/50 px-2 py-1 rounded">
-              {mode === QuizMode.QUANTITY_TO_UNIT ? 'Välj enhet' : 'Välj storhet'}
+              {mode === QuizMode.QUANTITY_TO_UNIT ? 'Välj SI-enhet' : 'Välj storhet'}
             </div>
           </motion.div>
         </AnimatePresence>

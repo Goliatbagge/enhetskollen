@@ -4,6 +4,7 @@ export interface PhysicsItem {
   symbol: string;   // Beteckning
   unitShort: string; // SI-enhet (e.g., m/s)
   unitLong: string;  // SI-enhet description (e.g., meter per sekund)
+  commonWrongUnits?: string[]; // Vanliga fel enheter (inte SI-enheter men relaterade)
 }
 
 export enum QuizMode {
