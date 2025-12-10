@@ -45,8 +45,7 @@ export const ModeSelection: React.FC<ModeSelectionProps> = ({ course, chapter, o
                   <span className="font-serif italic font-bold text-blue-700 text-xl">E</span>
                 </div>
                 <div>
-                  <h3 className="font-bold text-gray-900">Läge 1</h3>
-                  <p className="text-sm text-gray-500">Storhet ➔ SI-enhet</p>
+                  <h3 className="font-bold text-gray-900">Storhet ➔ SI-enhet</h3>
                 </div>
               </div>
               <ArrowRight className="w-5 h-5 text-gray-300 group-hover:text-indigo-500 transition-colors" />
@@ -63,8 +62,7 @@ export const ModeSelection: React.FC<ModeSelectionProps> = ({ course, chapter, o
                   <RotateCcw className="w-6 h-6 text-purple-700" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-gray-900">Läge 2</h3>
-                  <p className="text-sm text-gray-500">Beteckning ➔ Storhet</p>
+                  <h3 className="font-bold text-gray-900">Beteckning ➔ Storhet</h3>
                 </div>
               </div>
               <ArrowRight className="w-5 h-5 text-gray-300 group-hover:text-indigo-500 transition-colors" />
